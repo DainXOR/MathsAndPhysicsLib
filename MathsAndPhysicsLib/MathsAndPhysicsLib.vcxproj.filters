@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de origen">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Utilidades">
+      <UniqueIdentifier>{f8b9ed00-d550-42dc-9073-53509ffc88ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tipos y estructuras">
+      <UniqueIdentifier>{36da59c0-f35f-4334-ba16-bf529b0661da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Procesos">
+      <UniqueIdentifier>{0b3913b2-568c-464c-b1aa-3f8b02194fa0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="dmplib.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="dmpconstants.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="dtas.cpp">
+      <Filter>Tipos y estructuras</Filter>
+    </ClCompile>
+    <ClCompile Include="complex_types.cpp">
+      <Filter>Tipos y estructuras</Filter>
+    </ClCompile>
+    <ClCompile Include="dmath_types.cpp">
+      <Filter>Tipos y estructuras</Filter>
+    </ClCompile>
+    <ClCompile Include="dphysics_types.cpp">
+      <Filter>Tipos y estructuras</Filter>
+    </ClCompile>
+    <ClCompile Include="mProcesses.cpp">
+      <Filter>Procesos</Filter>
+    </ClCompile>
+    <ClCompile Include="pProcesses.cpp">
+      <Filter>Procesos</Filter>
+    </ClCompile>
+    <ClCompile Include="mFunctions.cpp">
+      <Filter>Procesos</Filter>
+    </ClCompile>
+    <ClCompile Include="pFunctions.cpp">
+      <Filter>Procesos</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dmplib.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="dmpconstants.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="dmutilities.h">
+      <Filter>Utilidades</Filter>
+    </ClInclude>
+    <ClInclude Include="dputilities.h">
+      <Filter>Utilidades</Filter>
+    </ClInclude>
+    <ClInclude Include="dtas.h">
+      <Filter>Tipos y estructuras</Filter>
+    </ClInclude>
+    <ClInclude Include="complex_types.h">
+      <Filter>Tipos y estructuras</Filter>
+    </ClInclude>
+    <ClInclude Include="dmath_types.h">
+      <Filter>Tipos y estructuras</Filter>
+    </ClInclude>
+    <ClInclude Include="dphysics_types.h">
+      <Filter>Tipos y estructuras</Filter>
+    </ClInclude>
+    <ClInclude Include="mProcesses.h">
+      <Filter>Procesos</Filter>
+    </ClInclude>
+    <ClInclude Include="pProcesses.h">
+      <Filter>Procesos</Filter>
+    </ClInclude>
+    <ClInclude Include="functions.h">
+      <Filter>Procesos</Filter>
+    </ClInclude>
+    <ClInclude Include="processes.h">
+      <Filter>Procesos</Filter>
+    </ClInclude>
+    <ClInclude Include="mFunctions.h">
+      <Filter>Procesos</Filter>
+    </ClInclude>
+    <ClInclude Include="pFunctions.h">
+      <Filter>Procesos</Filter>
+    </ClInclude>
+    <ClInclude Include="dmptypes.h">
+      <Filter>Tipos y estructuras</Filter>
+    </ClInclude>
+    <ClInclude Include="dmtdecl.h">
+      <Filter>Tipos y estructuras</Filter>
+    </ClInclude>
+    <ClInclude Include="dptdecl.h">
+      <Filter>Tipos y estructuras</Filter>
+    </ClInclude>
+    <ClInclude Include="general_utilities.h">
+      <Filter>Utilidades</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MathsAndPhysicsLib.rc">
+      <Filter>Archivos de recursos</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
+  </ItemGroup>
+</Project>
