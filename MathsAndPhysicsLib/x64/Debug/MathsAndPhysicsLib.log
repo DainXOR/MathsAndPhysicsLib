@@ -1,11 +1,14 @@
-﻿  complex_types.cpp
+﻿  dmath_types.cpp
   dmpconstants.cpp
-  mFunctions.cpp
+  dphysics_types.cpp
+  dtas.cpp
+  complex_types.cpp
   main.cpp
-C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\complex_types.h(209,16): error C2678: '=' binario: no se encontró un operador que adopte un operando en la parte izquierda de tipo 'const dmp::dmt::vector<double,2>' (o bien no existe una conversión aceptable)
-C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\dtas.h(267,1): message : puede ser 'dmp::dmt::vector<double,2> &dmp::dmt::vector<double,2>::operator =(dmp::dmt::vector<double,2> &&)'
-C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\dtas.h(267,1): message : o       'dmp::dmt::vector<double,2> &dmp::dmt::vector<double,2>::operator =(const dmp::dmt::vector<double,2> &)'
-C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\complex_types.h(210,1): message : al hacer coincidir la lista de argumentos '(const dmp::dmt::vector<double,2>, initializer list)'
-C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\main.cpp(25): message : Vea la referencia a la creación de una instancia de la función plantilla "dmp::dmt::complex<double> dmp::dmt::complex<double>::operator +=<double>(const dmp::dmt::complex<double> &) noexcept const" que se está compilando
-C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\main.cpp(25): message : Vea la referencia a la creación de una instancia de la función plantilla "dmp::dmt::complex<double> dmp::dmt::complex<double>::operator +=<double>(const dmp::dmt::complex<double> &) noexcept const" que se está compilando
+C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\complex_types.h(212,15): error C2678: '=' binario: no se encontró un operador que adopte un operando en la parte izquierda de tipo 'const dmp::dmt::vector<double,2>' (o bien no existe una conversión aceptable)
+C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\matrix_types.h(239,1): message : puede ser 'dmp::dmt::vector<double,2> &dmp::dmt::vector<double,2>::operator =(dmp::dmt::vector<double,2> &&)'
+C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\matrix_types.h(239,1): message : o       'dmp::dmt::vector<double,2> &dmp::dmt::vector<double,2>::operator =(const dmp::dmt::vector<double,2> &)'
+C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\complex_types.h(213,1): message : al hacer coincidir la lista de argumentos '(const dmp::dmt::vector<double,2>, initializer list)'
+C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\main.cpp(26): message : Vea la referencia a la creación de una instancia de la función plantilla "dmp::dmt::complex<double> dmp::dmt::complex<double>::operator +=<double>(const dmp::dmt::complex<double> &) noexcept const" que se está compilando
+C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\main.cpp(26): message : Vea la referencia a la creación de una instancia de la función plantilla "dmp::dmt::complex<double> dmp::dmt::complex<double>::operator +=<double>(const dmp::dmt::complex<double> &) noexcept const" que se está compilando
+  mFunctions.cpp
   Generando código...

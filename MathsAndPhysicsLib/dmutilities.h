@@ -11,23 +11,43 @@ namespace dmutils {
 	namespace constrains {
 
 		template<typename ty_>
+		concept Integral = requires{
+			std::integral<ty_>;
+			std::negation_v<std::is_same<ty_, bool>>;
+		};
+			
+
+		template<typename ty_>
+		concept Arithmetic = requires{
+			Integral<ty_>;
+			std::is_floating_point_v<ty_>;
+		};
+			
+
+		template<typename ty_>
 		concept MathType = requires(ty_ A, ty_ B) {
-			std::is_arithmetic<ty_>::value;
-			!std::is_same<ty_, bool>::value;
+			Arithmetic<ty_>;
 			{A + B}; // -> std::same_as<ty_>;
 			{A - B}; // -> std::same_as<ty_>;
 			{A * B}; // -> std::same_as<ty_>;
-			{A / B}; //->std::same_as<ty_>;
+			{A / B}; // -> std::same_as<ty_>;
 			ty_();
 			std::to_string(ty_());
 
 		};
 
-		//template<template<typename, typename> class dim>
-		//concept MatrixDimention = requires() {
-		//	dim::m;
-		//	dim::n;
-		//};
+		template<typename ty_>
+		concept Dimention = requires{
+			Integral<ty_>;
+			ty_::m;
+			ty_::n;
+		};
+
+		template<class ty_>
+		concept VectorDim = requires() {
+			Dimention<ty_>;
+			ty_::n == 1;
+		};
 
 	}
 	

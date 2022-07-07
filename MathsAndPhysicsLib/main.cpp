@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "complex_types.h"
+#include "matrix_types.h"
 
 using namespace dmp;
 
@@ -21,7 +22,7 @@ int main() {
 	dmt::complex Test3 = { 7.4, 3.2f };
 	dmt::complex Test4 = { '7', 69 };
 	
-	dmt::complex Test0;
+	dmt::complex<> Test0;
 	Test0 += (Test3 + Test2);
 
 	std::cout << std::string(Test0) << "\n";

@@ -22,6 +22,30 @@
     <Filter Include="Procesos">
       <UniqueIdentifier>{0b3913b2-568c-464c-b1aa-3f8b02194fa0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tipos y estructuras\Tipos matematicos">
+      <UniqueIdentifier>{9416affa-caf2-45cf-9440-2c13a0230639}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tipos y estructuras\Tipos fisicos">
+      <UniqueIdentifier>{482dd9d2-9508-4594-ad63-f6b034ec3fb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tipos y estructuras\Tipos fisicos\Vectoriales">
+      <UniqueIdentifier>{932b325e-3af6-413d-893e-af0e7a7437c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tipos y estructuras\Tipos fisicos\Escalares">
+      <UniqueIdentifier>{6128d5ce-ed63-488d-bca0-e69bbab67828}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tipos y estructuras\Tipos matematicos\Complejos">
+      <UniqueIdentifier>{6b6d59fd-21d8-49c9-b96c-20797bb8bdea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tipos y estructuras\Tipos matematicos\Matriciales">
+      <UniqueIdentifier>{8992c1d7-ac21-47c6-8e0a-6d157335df3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tipos y estructuras\Tipos matematicos\Ecuaciones">
+      <UniqueIdentifier>{af3a103a-5c9a-4a3a-adb7-44a8cfdca8be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tipos y estructuras\Tipos matematicos\Conjuntos">
+      <UniqueIdentifier>{b78ee495-eba4-4b48-9590-89b7b827bf51}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -36,15 +60,6 @@
     <ClCompile Include="dtas.cpp">
       <Filter>Tipos y estructuras</Filter>
     </ClCompile>
-    <ClCompile Include="complex_types.cpp">
-      <Filter>Tipos y estructuras</Filter>
-    </ClCompile>
-    <ClCompile Include="dmath_types.cpp">
-      <Filter>Tipos y estructuras</Filter>
-    </ClCompile>
-    <ClCompile Include="dphysics_types.cpp">
-      <Filter>Tipos y estructuras</Filter>
-    </ClCompile>
     <ClCompile Include="mProcesses.cpp">
       <Filter>Procesos</Filter>
     </ClCompile>
@@ -56,6 +71,18 @@
     </ClCompile>
     <ClCompile Include="pFunctions.cpp">
       <Filter>Procesos</Filter>
+    </ClCompile>
+    <ClCompile Include="complex_types.cpp">
+      <Filter>Tipos y estructuras\Tipos matematicos\Complejos</Filter>
+    </ClCompile>
+    <ClCompile Include="matrix_types.cpp">
+      <Filter>Tipos y estructuras\Tipos matematicos\Matriciales</Filter>
+    </ClCompile>
+    <ClCompile Include="dmath_types.cpp">
+      <Filter>Tipos y estructuras\Tipos matematicos</Filter>
+    </ClCompile>
+    <ClCompile Include="dphysics_types.cpp">
+      <Filter>Tipos y estructuras\Tipos fisicos</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,15 +102,6 @@
       <Filter>Utilidades</Filter>
     </ClInclude>
     <ClInclude Include="dtas.h">
-      <Filter>Tipos y estructuras</Filter>
-    </ClInclude>
-    <ClInclude Include="complex_types.h">
-      <Filter>Tipos y estructuras</Filter>
-    </ClInclude>
-    <ClInclude Include="dmath_types.h">
-      <Filter>Tipos y estructuras</Filter>
-    </ClInclude>
-    <ClInclude Include="dphysics_types.h">
       <Filter>Tipos y estructuras</Filter>
     </ClInclude>
     <ClInclude Include="mProcesses.h">
@@ -107,14 +125,26 @@
     <ClInclude Include="dmptypes.h">
       <Filter>Tipos y estructuras</Filter>
     </ClInclude>
-    <ClInclude Include="dmtdecl.h">
-      <Filter>Tipos y estructuras</Filter>
-    </ClInclude>
-    <ClInclude Include="dptdecl.h">
-      <Filter>Tipos y estructuras</Filter>
-    </ClInclude>
     <ClInclude Include="general_utilities.h">
       <Filter>Utilidades</Filter>
+    </ClInclude>
+    <ClInclude Include="complex_types.h">
+      <Filter>Tipos y estructuras\Tipos matematicos\Complejos</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_types.h">
+      <Filter>Tipos y estructuras\Tipos matematicos\Matriciales</Filter>
+    </ClInclude>
+    <ClInclude Include="dmtdecl.h">
+      <Filter>Tipos y estructuras\Tipos matematicos</Filter>
+    </ClInclude>
+    <ClInclude Include="dptdecl.h">
+      <Filter>Tipos y estructuras\Tipos fisicos</Filter>
+    </ClInclude>
+    <ClInclude Include="dmath_types.h">
+      <Filter>Tipos y estructuras\Tipos matematicos</Filter>
+    </ClInclude>
+    <ClInclude Include="dphysics_types.h">
+      <Filter>Tipos y estructuras\Tipos fisicos</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

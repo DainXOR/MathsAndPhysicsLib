@@ -3,7 +3,7 @@
 #include <cmath>
 
 #include "dmutilities.h"
-#include "dtas.h"
+#include "dmtdecl.h"
 #include "general_utilities.h"
 
 _DMP_BEGIN
@@ -11,13 +11,15 @@ namespace dmt {
 	using dmutils::constrains::MathType;
 
 	enum complexTraits : unsigned char {
-		RECTANGULAR = 0b0000,
-		POLAR = 0b0001,
+		RECTANGULAR		= 0b0000,
+		POLAR			= 0b0001,
 
-		DEGREES = 0b0000,
-		RADIANS = 0b0010
+		DEGREES			= 0b0000,
+		RADIANS			= 0b0010
 
 	};
+
+
 
 	template<MathType ty_ = dgt::real>
 	class complex
