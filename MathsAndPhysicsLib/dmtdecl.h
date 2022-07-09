@@ -16,7 +16,6 @@ namespace dmt { // Math Types
 
 	//template<typename dimstr>
 	//template<constrains::MathType ty_, template<constrains::MathType, constrains::MathType> class dimstr>
-	//requires constrains::MatrixDimention<dimstr>
 	//class matrix;
 
 }

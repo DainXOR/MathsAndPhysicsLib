@@ -57,7 +57,7 @@
     <ClCompile Include="dmpconstants.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="dtas.cpp">
+    <ClCompile Include="dmptas.cpp">
       <Filter>Tipos y estructuras</Filter>
     </ClCompile>
     <ClCompile Include="mProcesses.cpp">
@@ -101,7 +101,7 @@
     <ClInclude Include="dputilities.h">
       <Filter>Utilidades</Filter>
     </ClInclude>
-    <ClInclude Include="dtas.h">
+    <ClInclude Include="dmptas.h">
       <Filter>Tipos y estructuras</Filter>
     </ClInclude>
     <ClInclude Include="mProcesses.h">

@@ -13,14 +13,13 @@ namespace dmutils {
 		template<typename ty_>
 		concept Integral = requires{
 			std::integral<ty_>;
-			std::negation_v<std::is_same<ty_, bool>>;
+			!std::is_same_v<ty_, bool>;
 		};
 			
 
 		template<typename ty_>
 		concept Arithmetic = requires{
-			Integral<ty_>;
-			std::is_floating_point_v<ty_>;
+			Integral<ty_> || std::is_floating_point_v<ty_>;
 		};
 			
 
@@ -36,16 +35,17 @@ namespace dmutils {
 
 		};
 
-		template<typename ty_>
-		concept Dimention = requires{
-			Integral<ty_>;
-			ty_::m;
-			ty_::n;
+		template<class str>
+		concept MatrixDim = requires(str dimStr) {
+			Integral<typename str::type>;
+			dimStr.m;
+			dimStr.n;
+			//dimStr.o; // Optional
 		};
 
 		template<class ty_>
 		concept VectorDim = requires() {
-			Dimention<ty_>;
+			MatrixDim<ty_>;
 			ty_::n == 1;
 		};
 
@@ -62,7 +62,6 @@ namespace dmutils {
 	}
 
 	namespace tricks{
-		//using short_circuit = void(*)(bool cond_, auto if_, auto else_);
 	}
 
 }

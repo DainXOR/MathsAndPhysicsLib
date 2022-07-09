@@ -204,13 +204,13 @@ namespace dmt {
 		complex<buffer_type> operator +(other_type real_) const noexcept { return { this->real() + real_, this->imaginary() }; }
 
 		template<typename other_type>
-		complex<buffer_type> operator +=(const complex<other_type> &other_) const noexcept {
+		complex<buffer_type> operator +=(const complex<other_type> &other_) noexcept {
 				
-			//this->m_Coordinates = { this->real()		+ buffer_type(other_.real()),
-			//						this->imaginary()	+ buffer_type(other_.imaginary()) };
+			this->m_Coordinates = {	this->real() + buffer_type(other_.real()),
+									this->imaginary()	+ buffer_type(other_.imaginary()) };
 
-			return this->m_Coordinates = {	this->real()		+ buffer_type(other_.real()),
-											this->imaginary()	+ buffer_type(other_.imaginary()) };
+			return   {	this->real() + buffer_type(other_.real()),
+						this->imaginary()	+ buffer_type(other_.imaginary()) };
 		}
 		template<typename other_type>
 		complex<buffer_type> operator +=(other_type real_) const noexcept { 

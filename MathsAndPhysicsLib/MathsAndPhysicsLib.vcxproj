@@ -144,7 +144,7 @@
     <ClCompile Include="dmpconstants.cpp" />
     <ClCompile Include="dmplib.cpp" />
     <ClCompile Include="dphysics_types.cpp" />
-    <ClCompile Include="dtas.cpp" />
+    <ClCompile Include="dmptas.cpp" />
     <ClCompile Include="complex_types.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="matrix_types.cpp" />
@@ -162,7 +162,7 @@
     <ClInclude Include="dphysics_types.h" />
     <ClInclude Include="dptdecl.h" />
     <ClInclude Include="dputilities.h" />
-    <ClInclude Include="dtas.h" />
+    <ClInclude Include="dmptas.h" />
     <ClInclude Include="dmutilities.h" />
     <ClInclude Include="complex_types.h" />
     <ClInclude Include="functions.h" />
