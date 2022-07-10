@@ -1,4 +1,5 @@
-﻿  dmath_types.cpp
+﻿  complex_types.cpp
+  dmath_types.cpp
   dmpconstants.cpp
   dmptas.cpp
   mFunctions.cpp

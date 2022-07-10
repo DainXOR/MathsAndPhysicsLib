@@ -8,10 +8,10 @@ _DMP_BEGIN
 
 namespace dmconsts {
 
-    constexpr double        pi = 3.14159265358979323846264338327950288;
-    constexpr double        e = 2.71828182845904523536028747135266249;
+    constexpr double        pi  = 3.14159265358979323846264338327950288;
+    constexpr double        e   = 2.71828182845904523536028747135266249;
     constexpr double        phi = 1.61803398874989484820458683436563811;
-    constexpr dmt::complex  i = { 0, 1 };
+    constexpr dmt::complex  i   = { 0, 1 };
         
 }
 

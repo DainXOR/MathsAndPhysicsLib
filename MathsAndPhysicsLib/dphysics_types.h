@@ -1,7 +1,7 @@
 #pragma once
 
 #include "dputilities.h"
-#include "dptdecl.h"
+#include "dptdeclarations.h"
 
 #include "general_utilities.h"
 

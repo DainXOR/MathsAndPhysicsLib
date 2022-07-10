@@ -7,8 +7,9 @@
 #define _DMP_BEGIN namespace dmp {
 #define _DMP_END }
 
-
 #endif // Namespace macros
+
+#define CONSTEXPR_TEST(function_call) constexpr bool b1 = noexcept(function_call); std::cout << b1 << "\n"
 
 
 

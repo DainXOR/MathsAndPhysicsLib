@@ -44,7 +44,7 @@ int main() {
 	//v2 - 5;
 
 	/// // dmt::complex Test0;
-	/// // dmt::complex Test1 = { 1, 0 };
+	dmt::complex Test1 = { 1, -5 };
 	/// // dmt::complex Test2 = { 32.f, 110.4 };
 	/// // dmt::complex Test3 = { 7.4, 3.2f };
 	/// // dmt::complex Test4 = { '7', 69 }; 
@@ -52,11 +52,11 @@ int main() {
 
 	/// // Test0 += (Test3 + Test2);
 
-
 	/// > Task: Overload << operator
 	
 	/// // std::cout << std::string(Test0) << "\n";
-	/// // std::cout << std::string(Test1) << "\n";
+	std::cout << Test1 << "\n";
+	// CONSTEXPR_TEST(abs(-5));
 	/// // std::cout << std::string(Test2) << "\n";
 	/// // std::cout << std::string(Test3) << "\n";
 	/// // std::cout << std::string(Test4) << "\n";

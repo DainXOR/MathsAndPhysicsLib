@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dmath_types.cpp" />
+    <ClCompile Include="dmbasic_functions.cpp" />
     <ClCompile Include="dmpconstants.cpp" />
     <ClCompile Include="dmplib.cpp" />
     <ClCompile Include="dphysics_types.cpp" />
@@ -155,12 +156,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dmath_types.h" />
+    <ClInclude Include="dmbasic_functions.h" />
     <ClInclude Include="dmpconstants.h" />
+    <ClInclude Include="dmpdefinitions.h" />
     <ClInclude Include="dmplib.h" />
     <ClInclude Include="dmptypes.h" />
-    <ClInclude Include="dmtdecl.h" />
+    <ClInclude Include="dmtdeclarations.h" />
     <ClInclude Include="dphysics_types.h" />
-    <ClInclude Include="dptdecl.h" />
+    <ClInclude Include="dptdeclarations.h" />
     <ClInclude Include="dputilities.h" />
     <ClInclude Include="dmptas.h" />
     <ClInclude Include="dmutilities.h" />

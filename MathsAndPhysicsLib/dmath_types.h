@@ -1,7 +1,6 @@
 #pragma once
 
-#include "dmutilities.h"
-#include "dmtdecl.h"
+#include "dmtdeclarations.h"
 
 #include "complex_types.h"
 #include "matrix_types.h"

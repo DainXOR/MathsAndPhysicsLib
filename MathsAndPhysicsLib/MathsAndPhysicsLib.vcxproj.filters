@@ -84,6 +84,9 @@
     <ClCompile Include="dphysics_types.cpp">
       <Filter>Tipos y estructuras\Tipos fisicos</Filter>
     </ClCompile>
+    <ClCompile Include="dmbasic_functions.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dmplib.h">
@@ -134,10 +137,10 @@
     <ClInclude Include="matrix_types.h">
       <Filter>Tipos y estructuras\Tipos matematicos\Matriciales</Filter>
     </ClInclude>
-    <ClInclude Include="dmtdecl.h">
+    <ClInclude Include="dmtdeclarations.h">
       <Filter>Tipos y estructuras\Tipos matematicos</Filter>
     </ClInclude>
-    <ClInclude Include="dptdecl.h">
+    <ClInclude Include="dptdeclarations.h">
       <Filter>Tipos y estructuras\Tipos fisicos</Filter>
     </ClInclude>
     <ClInclude Include="dmath_types.h">
@@ -145,6 +148,12 @@
     </ClInclude>
     <ClInclude Include="dphysics_types.h">
       <Filter>Tipos y estructuras\Tipos fisicos</Filter>
+    </ClInclude>
+    <ClInclude Include="dmbasic_functions.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="dmpdefinitions.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

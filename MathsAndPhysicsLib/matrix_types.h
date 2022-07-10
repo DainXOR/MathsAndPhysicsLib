@@ -6,8 +6,7 @@
 
 #include <iostream>
 
-#include "dmutilities.h"
-#include "dmptas.h"
+#include "dmtdeclarations.h"
 #include "general_utilities.h"
 
 _DMP_BEGIN
@@ -102,7 +101,7 @@ namespace dmt{
 
 		using dim = matrix3d<m_, n_, o_>;
 
-		std::array<std::array<std::array<ty_, o_>, n_>, m_> buffer;
+		std::array<ty_, m_ * n_ * o_> buffer;
 	
 	};
 

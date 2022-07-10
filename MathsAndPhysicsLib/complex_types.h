@@ -1,12 +1,53 @@
 #pragma once
 #include <string>
 #include <cmath>
+#include <ostream>
 
-#include "dmutilities.h"
-#include "dmtdecl.h"
+#include "dmtdeclarations.h"
 #include "general_utilities.h"
 
 _DMP_BEGIN
+
+namespace imaginary_ns {
+	namespace tests {
+		using dmutils::constrains::MathType;
+
+		template <MathType ty_>
+		class imaginary {
+		public:
+			using type = ty_;
+			using const_type = const ty_;
+			using pointer = ty_*;
+			using const_pointer = const ty_*;
+			using reference = ty_&;
+			using const_reference = const ty_&;
+
+			
+
+		public:
+			type value;
+
+		};
+
+		template <MathType ty_>
+		class real {
+		public:
+			using type = ty_;
+			using const_type = const ty_;
+			using pointer = ty_*;
+			using const_pointer = const ty_*;
+			using reference = ty_&;
+			using const_reference = const ty_&;
+
+		public:
+			type value;
+
+		};
+	}
+	namespace woks {
+	}
+}
+
 namespace dmt {
 	using dmutils::constrains::MathType;
 
@@ -95,14 +136,14 @@ namespace dmt {
 
 		/// > Casts
 
-		operator int()			const noexcept { return int(real()); }
-		operator long()			const noexcept { return long(real()); }
-		operator short()		const noexcept { return short(real()); }
-		operator float()		const noexcept { return float(real()); }
-		operator double()		const noexcept { return real(); }
-		operator char()			const noexcept { return char(real()); }
-		operator bool()			const noexcept { return bool(magnitude()); }
-		operator std::string()	const noexcept {
+		explicit operator int()			const noexcept { return int(real()); }
+		explicit operator long()			const noexcept { return long(real()); }
+		explicit operator short()		const noexcept { return short(real()); }
+		explicit operator float()		const noexcept { return float(real()); }
+		explicit operator double()		const noexcept { return real(); }
+		explicit operator char()			const noexcept { return char(real()); }
+		explicit operator bool()			const noexcept { return bool(magnitude()); }
+		explicit operator std::string()	const noexcept {
 			if (getCoordType()) /* True: Polar*/ {
 				std::string formatStr = "(" + std::to_string(magnitude()) + ", " +
 					std::to_string(angle()) + ")";
@@ -113,7 +154,7 @@ namespace dmt {
 				std::to_string(imaginary()) + "i";
 			return formatStr;
 		}
-		operator _complex()		const noexcept { return _complex({ real(), imaginary() }); }
+		explicit operator _complex()		const noexcept { return _complex({ real(), imaginary() }); }
 
 
 		/// > Coordinates Convertions
@@ -182,6 +223,8 @@ namespace dmt {
 			return val;
 		}
 		bool						radians()		const noexcept { return bool(m_Traits & RADIANS); }
+		bool						isPolar()		const noexcept { return bool(getCoordType() & POLAR); }
+		bool						isRecatngular()	const noexcept { return !bool(getCoordType() & POLAR); }
 
 		/// > Operators
 
@@ -268,6 +311,19 @@ namespace dmt {
 
 	};
 
+	template<typename buffer_type>
+	std::ostream& operator<<(std::ostream& out, const complex<buffer_type>& rhs)
+	{
+		if (rhs.isPolar()) {
+			out << "(" << rhs.magnitude() << ", " << rhs.angle() << ")";
+			return out;
+		}
 
+		std::string op = rhs.imaginary() < 0 ? " - " : " + ";
+
+
+		out << rhs.real() << op << dmbasic_functions::abs(rhs.imaginary()) << "i";
+		return out;
+	}
 }
 _DMP_END
