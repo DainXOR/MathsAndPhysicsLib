@@ -1,8 +1,7 @@
-﻿  complex_types.cpp
-  dmath_types.cpp
+﻿  dmath_types.cpp
   dmpconstants.cpp
   dmptas.cpp
-  mFunctions.cpp
   main.cpp
+  mFunctions.cpp
   Generando código...
   MathsAndPhysicsLib.vcxproj -> C:\dev\cpp\MathsAndPhysicsLib\x64\Debug\MathsAndPhysicsLib.exe

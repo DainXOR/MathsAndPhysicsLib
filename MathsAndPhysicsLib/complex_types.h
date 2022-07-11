@@ -44,7 +44,7 @@ namespace imaginary_ns {
 
 		};
 	}
-	namespace woks {
+	namespace works {
 	}
 }
 
@@ -84,10 +84,6 @@ namespace dmt {
 
 	public:
 		/// > Constructors
-
-		constexpr complex() noexcept
-			: m_Coordinates({}), m_Traits(RECTANGULAR)
-		{}
 
 		/// \param real_		Real part of the complex number.
 		/// \param imaginary_	Imaginary part of the complex number.
@@ -306,8 +302,8 @@ namespace dmt {
 
 
 	private:
-		point<buffer_type, 2> m_Coordinates;
-		Traits m_Traits;
+		point<buffer_type, 2> m_Coordinates = {};
+		Traits m_Traits = RECTANGULAR;
 
 	};
 

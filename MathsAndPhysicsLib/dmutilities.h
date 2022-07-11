@@ -49,11 +49,55 @@ namespace dmutils {
 			ty_::n == 1;
 		};
 
+		template<template<uint16_t...>class propsStr, uint16_t...dims>
+		concept TensorProps = requires() {
+			propsStr<dims...>::rank;
+			propsStr<dims...>::dimentions;
+			propsStr<dims...>::size;
+
+		};
+
+
 	}
 	
 	//template<class ty_>
 	//void function() requires constrains::MathType<ty_>
 	//{}
+
+	namespace structs {
+		namespace {
+
+			template<uint16_t... dims>
+			struct tensor_properties {
+				const uint16_t rank = sizeof... (dims);
+				const std::array<uint16_t, sizeof... (dims)>dimentions = { dims... };
+				const size_t size = TensorSize<dims...>::size;
+			};
+
+		}
+
+		template<uint16_t... dims>
+		using TensorProperties = tensor_properties<dims...>;
+
+		template<uint16_t dim_0, uint16_t... dim_n>
+		struct TensorSize
+		{
+			const static size_t size = dim_0 * TensorSize<dim_n...>::size;
+		};
+
+		template<uint16_t dim_n>
+		struct TensorSize<dim_n>
+		{
+			const static size_t size = dim_n;
+		};
+
+		template<uint16_t... dims>
+		constexpr uint16_t TensorRank = tensor_properties<dims...>().rank;
+		
+		template<uint16_t... dims>
+		constexpr auto TensorDimentions = tensor_properties<dims...>().dimentions;
+
+	}
 
 	namespace casts {
 

@@ -5,6 +5,7 @@
 
 using namespace dmp;
 
+
 int main() {
 
 	//dmt::vector<int, 3> v0{3, 8, 1};
@@ -42,6 +43,15 @@ int main() {
 	//v2 += v1 + v0;
 	//dmt::vector<float, 3> v2 = v0 + v1;
 	//v2 - 5;
+
+
+	auto count1 = dmutils::structs::TensorRank<3, 3, 5>;
+	auto count2 = dmutils::structs::TensorRank<3, 3, 5, 3, 6, 3>;
+	
+	auto dimArr1 = dmutils::structs::TensorDimentions<3, 3, 5, 3, 6, 3, 8, 2>;
+	
+	std::cout << count1 + count2 << "\n";
+	std::cin.get();
 
 	/// // dmt::complex Test0;
 	dmt::complex Test1 = { 1, -5 };

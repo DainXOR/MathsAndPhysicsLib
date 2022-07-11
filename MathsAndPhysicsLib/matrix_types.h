@@ -14,45 +14,50 @@ _DMP_BEGIN
 namespace dmt{
 	using namespace dmutils;
 
-	template<uint16_t m_, uint16_t n_, uint16_t o_ = 0>
-	struct matrix_dimention
-	{
-		using type = uint16_t;
+	namespace raw_structs { 
 
-		const uint16_t m = m_;
-		const uint16_t n = n_;
-		const uint16_t o = o_;
-	};
-	
-	//template<uint16_t m_ = 2, uint16_t n_ = 2, uint16_t o_ = 0>
-	//using mat_dim = matrix_dimention<m_, n_, o_>;
+		template<uint16_t m_, uint16_t n_, uint16_t o_ = 0>
+		struct matrix_dimention
+		{
+			using type = uint16_t;
 
-	template<uint16_t m_, uint16_t n_>
-	struct matrix_dimention <m_, n_, 0>
-	{
-		using type = uint16_t;
+			const uint16_t m = m_;
+			const uint16_t n = n_;
+			const uint16_t o = o_;
+		};
 
-		const uint16_t m = m_;
-		const uint16_t n = n_;
-	};
-	
-	template<uint16_t m_>
-	struct matrix_dimention <m_, 1, 0>
-	{
-		using type = uint16_t;
+		//template<uint16_t m_ = 2, uint16_t n_ = 2, uint16_t o_ = 0>
+		//using mat_dim = matrix_dimention<m_, n_, o_>;
 
-		const uint16_t m = m_;
-		const uint16_t n = 1;
-	};
+		template<uint16_t m_, uint16_t n_>
+		struct matrix_dimention <m_, n_, 0>
+		{
+			using type = uint16_t;
 
-	template<uint16_t n_>
-	struct matrix_dimention <1, n_, 0>
-	{
-		using type = uint16_t;
+			const uint16_t m = m_;
+			const uint16_t n = n_;
+		};
 
-		const uint16_t m = 1;
-		const uint16_t n = n_;
-	};
+		template<uint16_t m_>
+		struct matrix_dimention <m_, 1, 0>
+		{
+			using type = uint16_t;
+
+			const uint16_t m = m_;
+			const uint16_t n = 1;
+		};
+
+		template<uint16_t n_>
+		struct matrix_dimention <1, n_, 0>
+		{
+			using type = uint16_t;
+
+			const uint16_t m = 1;
+			const uint16_t n = n_;
+		};
+	}
+
+	using namespace raw_structs;
 
 	template<uint16_t m_, uint16_t n_, uint16_t o_>
 	using matrix3d = matrix_dimention<m_, n_, o_>;
@@ -65,6 +70,7 @@ namespace dmt{
 
 	template<uint16_t m_>
 	using matrixrow = matrix_dimention<m_, 1, 0>;
+
 
 	template<constrains::Arithmetic ty_>
 	using init_list_3d = std::initializer_list <std::initializer_list<std::initializer_list<ty_>>>;
@@ -86,6 +92,114 @@ namespace dmt{
 	template<constrains::Arithmetic ty_, uint16_t m_>
 	using init_array_row = std::array<std::array<ty_, 1>, m_>;
 
+
+
+
+
+
+	namespace tests {
+
+		namespace newStructs {
+			using namespace structs;
+
+			template<TensorProperties<> t_props, constrains::MathType ty_ = dgt::real>
+			class tensor {
+			public:
+				using buffer_type = ty_;
+				using const_type = const ty_;
+				using pointer = ty_*;
+				using const_pointer = const ty_*;
+				using reference = ty_&;
+				using const_reference = const ty_&;
+
+				const uint16_t rank = t_props.rank;
+				const std::array<uint16_t, t_props.rank> dimentions = t_props.dimentions;
+
+				std::array<buffer_type, t_props.size> buffer;
+			};
+		}
+		
+
+
+		template<constrains::MatrixDim dim_type, constrains::MathType ty_ = dgt::real>
+		class t_matrix
+		{
+			t_matrix() {
+				throw std::exception("This should never be constructed.");
+			}
+		};
+
+		template<uint16_t m_, uint16_t n_, uint16_t o_, constrains::MathType ty_>
+		class t_matrix < matrix3d<m_, n_, o_>, ty_ >
+		{
+		public:
+
+			using dim_type = matrix3d<m_, n_, o_>;
+
+
+			dim_type dim;
+			std::array<ty_, m_* n_* o_> buffer;
+
+			ty_& operator()(uint16_t index_m, uint16_t index_n, uint16_t index_o) {
+				if((index_m >= dim.m) || (index_n >= dim.n) || (index_o >= dim.o) || (index_m * index_n * index_o == 0) ) {
+					throw std::out_of_range("Tried to access a position outside of the matrix");
+				}
+
+				return buffer[index_n + index_m * dim.n + index_o * dim.m * dim.o];
+
+				///index_n + 
+				///	(index_m * dim.n) + 
+				///	(index_o * dim.m * dim.o) + 
+				///	(index_p * dim.m * dim.o * dim.n) + 
+				///	(index_q * dim.m * dim.o * dim.n * dim.p);
+
+			}
+
+		};
+
+
+		template<constrains::Arithmetic ty_>
+		using init_list_3d = std::initializer_list <std::initializer_list<std::initializer_list<ty_>>>;
+		template<constrains::Arithmetic ty_, uint16_t m_, uint16_t n_, uint16_t o_>
+		using init_array_3d = std::array<ty_, m_* n_* o_>;
+
+
+
+		template<constrains::MathType ty_, uint16_t m_, uint16_t n_, uint16_t o_>
+		t_matrix< matrix3d<m_, n_, o_>, ty_> make_matrix(const init_list_3d<ty_>& list_) {
+			init_array_3d<ty_, m_, n_, o_> array_ = {};
+
+			{
+				int i = 0, j = 0, k = 0;
+				for (auto inner1 : list_) {
+					for (auto inner2 : inner1) {
+						for (auto inner3 : inner2) {
+
+							array_[i][j][k++] = inner3;
+
+						}
+						k = 0;
+						j++;
+					}
+					j = 0;
+					i++;
+				}
+			}
+
+			return { array_ };
+		}
+		template<constrains::MathType ty_, uint16_t m_, uint16_t n_, uint16_t o_>
+		t_matrix< matrix3d<m_, n_, o_>, ty_> make_matrix(const init_array_3d<ty_, m_, n_, o_>& array_) {
+			return { array_ };
+		}
+
+
+	}
+
+
+
+
+
 	template<constrains::MatrixDim dim_type, constrains::MathType ty_ = dgt::real>
 	class matrix 
 	{
@@ -101,8 +215,8 @@ namespace dmt{
 
 		using dim = matrix3d<m_, n_, o_>;
 
-		std::array<ty_, m_ * n_ * o_> buffer;
-	
+		std::array<std::array<std::array<ty_, o_ >, n_>, m_> buffer;
+
 	};
 
 	template<uint16_t m_, uint16_t n_, constrains::MathType ty_>
@@ -138,31 +252,6 @@ namespace dmt{
 
 	};
 	
-	//template<constrains::MatrixDim dim, constrains::MathType ty_ = dgt::real>
-	//struct make_matrix
-	//{
-	//
-	//};
-	//template<uint16_t m_, uint16_t n_, uint16_t o_, constrains::MathType ty_>
-	//struct make_matrix <matrix3d<m_, n_, o_>, ty_>
-	//{
-	//	make_matrix() {
-	//		buffer = {};
-	//	}
-	//
-	//	make_matrix(std::initializer_list<std::initializer_list<std::initializer_list<ty_>>> data) {
-	//		std::fill(&buffer[0][0][0], &buffer[0][0][0] + sizeof(buffer), 69);
-	//		
-	//	}
-	//
-	//	make_matrix(std::array<std::array<std::array<ty_, o_>, n_>, m_> data) {
-	//		buffer = data;
-	//
-	//	}
-	//
-	//	std::array<std::array<std::array<ty_, o_>, n_>, m_> buffer;
-	//};
-
 	
 	template<constrains::MathType ty_, uint16_t m_, uint16_t n_, uint16_t o_>
 	matrix< matrix3d<m_, n_, o_>, ty_> make_matrix(const init_list_3d<ty_>& list_) {
