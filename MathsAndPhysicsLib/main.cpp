@@ -1,16 +1,20 @@
 #include <iostream>
 
-#include "complex_types.h"
-#include "matrix_types.h"
+// #include "complex_types.h"
+#include "tensor_types.h"
+#include "mFunctions.h"
 
 using namespace dmp;
-
+using namespace dmt::tests::newStructs;
 
 int main() {
 
 	//dmt::vector<int, 3> v0{3, 8, 1};
 	//dmt::vector<int, 3> v1{2, 4, 1};
 	//dmt::vector<int, 3> v2{ 2, 4 };
+
+	std::cout << functions::factorial<int, 5>::value << "\n";
+
 
 	dmt::matrix <dmt::matrixrow<3>> mtrow { 1,  2,  3, };
 	dmt::matrix <dmt::matrixcol<3>> mtcol { 1,  4,  7, };
@@ -45,16 +49,17 @@ int main() {
 	//v2 - 5;
 
 
-	auto count1 = dmutils::structs::TensorRank<3, 3, 5>;
-	auto count2 = dmutils::structs::TensorRank<3, 3, 5, 3, 6, 3>;
+	const dmutils::structs::TensorProperties<3, 2, 5, 7> Props;
 	
-	auto dimArr1 = dmutils::structs::TensorDimentions<3, 3, 5, 3, 6, 3, 8, 2>;
+	dmt::constrains::TensorPropertiesStruct<dmutils::structs::TensorProperties, 3, 2, 5, 7>;
+
 	
-	std::cout << count1 + count2 << "\n";
-	std::cin.get();
+	//tensor<dmutils::structs::TensorProperties<3, 2, 5, 7>> b;
+
+
 
 	/// // dmt::complex Test0;
-	dmt::complex Test1 = { 1, -5 };
+	/// // dmt::complex Test1 = { 1, -5 };
 	/// // dmt::complex Test2 = { 32.f, 110.4 };
 	/// // dmt::complex Test3 = { 7.4, 3.2f };
 	/// // dmt::complex Test4 = { '7', 69 }; 
@@ -62,10 +67,9 @@ int main() {
 
 	/// // Test0 += (Test3 + Test2);
 
-	/// > Task: Overload << operator
 	
 	/// // std::cout << std::string(Test0) << "\n";
-	std::cout << Test1 << "\n";
+	/// // std::cout << Test1 << "\n";
 	// CONSTEXPR_TEST(abs(-5));
 	/// // std::cout << std::string(Test2) << "\n";
 	/// // std::cout << std::string(Test3) << "\n";

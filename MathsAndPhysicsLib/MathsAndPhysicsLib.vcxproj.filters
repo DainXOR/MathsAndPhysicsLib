@@ -75,7 +75,7 @@
     <ClCompile Include="complex_types.cpp">
       <Filter>Tipos y estructuras\Tipos matematicos\Complejos</Filter>
     </ClCompile>
-    <ClCompile Include="matrix_types.cpp">
+    <ClCompile Include="tensor_types.cpp">
       <Filter>Tipos y estructuras\Tipos matematicos\Matriciales</Filter>
     </ClCompile>
     <ClCompile Include="dmath_types.cpp">
@@ -134,7 +134,7 @@
     <ClInclude Include="complex_types.h">
       <Filter>Tipos y estructuras\Tipos matematicos\Complejos</Filter>
     </ClInclude>
-    <ClInclude Include="matrix_types.h">
+    <ClInclude Include="tensor_types.h">
       <Filter>Tipos y estructuras\Tipos matematicos\Matriciales</Filter>
     </ClInclude>
     <ClInclude Include="dmtdeclarations.h">

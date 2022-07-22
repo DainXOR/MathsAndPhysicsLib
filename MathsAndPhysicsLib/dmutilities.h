@@ -2,6 +2,7 @@
 
 #include <concepts>
 #include <string>
+#include <type_traits>
 
 #include "general_utilities.h"
 
@@ -35,6 +36,18 @@ namespace dmutils {
 
 		};
 
+
+		template<template<uint16_t...>class propsStr, uint16_t...dims>
+		concept TensorPropertiesStruct = requires() {
+			propsStr<dims...>::rank;
+
+			propsStr<dims...>::dimentions;
+			propsStr<dims...>::size;
+
+		};
+
+		
+
 		template<class str>
 		concept MatrixDim = requires(str dimStr) {
 			Integral<typename str::type>;
@@ -49,20 +62,9 @@ namespace dmutils {
 			ty_::n == 1;
 		};
 
-		template<template<uint16_t...>class propsStr, uint16_t...dims>
-		concept TensorProps = requires() {
-			propsStr<dims...>::rank;
-			propsStr<dims...>::dimentions;
-			propsStr<dims...>::size;
-
-		};
-
 
 	}
-	
-	//template<class ty_>
-	//void function() requires constrains::MathType<ty_>
-	//{}
+
 
 	namespace structs {
 		namespace {
@@ -70,10 +72,11 @@ namespace dmutils {
 			template<uint16_t... dims>
 			struct tensor_properties {
 				const uint16_t rank = sizeof... (dims);
-				const std::array<uint16_t, sizeof... (dims)>dimentions = { dims... };
+				const std::array<uint16_t, sizeof... (dims)> dimentions = { dims... };
 				const size_t size = TensorSize<dims...>::size;
 			};
 
+			
 		}
 
 		template<uint16_t... dims>

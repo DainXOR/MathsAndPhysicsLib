@@ -148,7 +148,7 @@
     <ClCompile Include="dmptas.cpp" />
     <ClCompile Include="complex_types.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="matrix_types.cpp" />
+    <ClCompile Include="tensor_types.cpp" />
     <ClCompile Include="mFunctions.cpp" />
     <ClCompile Include="mProcesses.cpp" />
     <ClCompile Include="pFunctions.cpp" />
@@ -170,7 +170,7 @@
     <ClInclude Include="complex_types.h" />
     <ClInclude Include="functions.h" />
     <ClInclude Include="general_utilities.h" />
-    <ClInclude Include="matrix_types.h" />
+    <ClInclude Include="tensor_types.h" />
     <ClInclude Include="mFunctions.h" />
     <ClInclude Include="mProcesses.h" />
     <ClInclude Include="pFunctions.h" />
