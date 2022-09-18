@@ -1,0 +1,30 @@
+﻿  main.cpp
+C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\tensor_types.h(112,55): warning C4838: la conversión de 'int' en '_Ty' requiere una conversión de restricción
+          with
+          [
+              _Ty=size_t
+          ]
+C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\main.cpp(106): message : Vea la referencia a la creación de una instancia de la función plantilla "int &dmp::dmt::tests::newStructs::tensor<dmp::dmutils::structs::tensor_properties<3,2,7,5,9,4>,int32_t>::operator ()<int,int,int,int,int,int>(int,int,int,int,int,int)" que se está compilando
+C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\main.cpp(106): message : Vea la referencia a la creación de una instancia de la función plantilla "int &dmp::dmt::tests::newStructs::tensor<dmp::dmutils::structs::tensor_properties<3,2,7,5,9,4>,int32_t>::operator ()<int,int,int,int,int,int>(int,int,int,int,int,int)" que se está compilando
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\xutility(4248,1): warning C4267: '=': conversión de 'size_t' a '_Ty'; posible pérdida de datos
+          with
+          [
+              _Ty=int
+          ]
+C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\tensor_types.h(69): message : Vea la referencia a la creación de una instancia de la función plantilla "_OutIt std::copy_n<std::_Array_const_iterator<_Ty,2>,uint16_t,std::_Array_iterator<int,2>>(_InIt,_Diff,_OutIt)" que se está compilando
+          with
+          [
+              _OutIt=std::_Array_iterator<int,2>,
+              _Ty=size_t,
+              _InIt=std::_Array_const_iterator<size_t,2>,
+              _Diff=uint16_t
+          ]
+C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\tensor_types.h(69): message : al compilar la función del miembro clase plantilla "std::array<int,2> dmp::dmt::tests::newStructs::tensor<dmp::dmutils::structs::tensor_properties<7,5>,int32_t>::getDimentions(void)"
+C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\main.cpp(71): message : Vea la referencia a la creación de una instancia de la función plantilla "std::array<int,2> dmp::dmt::tests::newStructs::tensor<dmp::dmutils::structs::tensor_properties<7,5>,int32_t>::getDimentions(void)" que se está compilando
+C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\main.cpp(68): message : Vea la referencia a la creación de una instancia de clase plantilla "dmp::dmt::tests::newStructs::tensor<dmp::dmutils::structs::tensor_properties<7,5>,int32_t>" que se está compilando
+  Generando código
+  1 of 65 functions ( 1.5%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Generación de código finalizada
+  MathsAndPhysicsLib.vcxproj -> C:\dev\cpp\MathsAndPhysicsLib\x64\Release\MathsAndPhysicsLib.exe

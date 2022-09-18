@@ -1,4 +1,6 @@
 #include <iostream>
+#include <type_traits>
+#include <vector>
 
 // #include "complex_types.h"
 #include "tensor_types.h"
@@ -7,17 +9,19 @@
 using namespace dmp;
 using namespace dmt::tests::newStructs;
 
+
+template<uint16_t... dims>
+using tprops = dmutils::structs::tensor_properties<dims...>;
+
+
+void Hmmmmmmmm();
+
 int main() {
 
 	//dmt::vector<int, 3> v0{3, 8, 1};
 	//dmt::vector<int, 3> v1{2, 4, 1};
 	//dmt::vector<int, 3> v2{ 2, 4 };
-
-	std::cout << functions::factorial<int, 5>::value << "\n";
-
-
-	dmt::matrix <dmt::matrixrow<3>> mtrow { 1,  2,  3, };
-	dmt::matrix <dmt::matrixcol<3>> mtcol { 1,  4,  7, };
+	
 
 	// dmt::matrix <dmt::matrix3d<3, 3, 3>> mt3d1     {1,  2,  3,  4,  5,  6,  7,  8,  9,
 	// 												10, 11, 12, 13, 14, 15, 16, 17, 18,
@@ -47,33 +51,69 @@ int main() {
 	//v2 += v1 + v0;
 	//dmt::vector<float, 3> v2 = v0 + v1;
 	//v2 - 5;
-
-
-	const dmutils::structs::TensorProperties<3, 2, 5, 7> Props;
 	
-	dmt::constrains::TensorPropertiesStruct<dmutils::structs::TensorProperties, 3, 2, 5, 7>;
+	tensor<tprops<3, 2, 7, 5, 9, 4>> Tensor1;
 
+	auto tensorProps = Tensor1.getProperties();
+	auto tensorDims = Tensor1.getDimentions();
+
+	std::cout << tensorProps.size << "\n";
+	std::cout << tensorProps.rank << "\n";
+
+	std::cout << "\n";
+	for (auto value : tensorDims) {
+		std::cout << value << "\n";
+	}
 	
-	//tensor<dmutils::structs::TensorProperties<3, 2, 5, 7>> b;
+	matrix<7, 5> Matrix1;
 
+	std::cout << "\n";
+	auto tensorDims2 = Matrix1.getDimentions();
 
+	for (auto value : tensorDims2) {
+		std::cout << value << "\n";
+	}
 
-	/// // dmt::complex Test0;
-	/// // dmt::complex Test1 = { 1, -5 };
-	/// // dmt::complex Test2 = { 32.f, 110.4 };
-	/// // dmt::complex Test3 = { 7.4, 3.2f };
-	/// // dmt::complex Test4 = { '7', 69 }; 
-
-
-	/// // Test0 += (Test3 + Test2);
-
+	//Hmmmmmmmm();
 	
-	/// // std::cout << std::string(Test0) << "\n";
-	/// // std::cout << Test1 << "\n";
-	// CONSTEXPR_TEST(abs(-5));
-	/// // std::cout << std::string(Test2) << "\n";
-	/// // std::cout << std::string(Test3) << "\n";
-	/// // std::cout << std::string(Test4) << "\n";
+}
 
 
+void Hmmmmmmmm() {
+
+	tensor<tprops<3, 2, 7, 5, 9, 4>> Tensor1;
+	for (uint16_t i = 0; i < Tensor1.getSize(); i++) {
+		Tensor1[i] = i;
+	}
+
+	matrix<7, 5> Matrix1 =
+	{	1,  2,  3,  10, 11,
+		4,  5,  6,  12, 13,
+		7,  8,  9,  14, 15,
+		16, 17, 18, 19, 20,
+		21, 29, 30, 32, 33,
+		22, 28, 31, 34, 35,
+		23, 24, 25, 26, 27
+	};
+
+
+	for (int r = 0; r < Tensor1.getDimentionSize(5); r++) {
+		for (int q = 0; q < Tensor1.getDimentionSize(4); q++) {
+			for (int p = 0; p < Tensor1.getDimentionSize(3); p++) {
+				for (int o = 0; o < Tensor1.getDimentionSize(2); o++) {
+					for (int n = 0; n < Tensor1.getDimentionSize(1); n++) {
+						for (int m = 0; m < Tensor1.getDimentionSize(0); m++) {
+							std::cout << Tensor1(m, n, o, p, q, r) << "\n";
+						}
+					}
+				}
+			}
+		}
+	}
+
+	for (int n = 0; n < Matrix1.getDimentionSize(1); n++) {
+		for (int m = 0; m < Matrix1.getDimentionSize(0); m++) {
+			std::cout << Matrix1(m, n) << "\n";
+		}
+	}
 }

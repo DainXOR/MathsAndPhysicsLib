@@ -17,9 +17,10 @@ namespace dmt { // Math Types
 
 }
 
-namespace dms {
+namespace dms { // Math Structures
 	using namespace dmutils;
 }
+
 namespace dgt { // General Types
 
 	using real = double;
@@ -29,23 +30,7 @@ namespace dgt { // General Types
 
 }
 
-namespace dgs { // General Structures
-	using namespace dmutils;
 
-	template<typename ty1_, typename ty2_>
-	struct pair
-	{
-		ty1_ first;
-		ty2_ second;
-	};
-
-	template<typename ty1_, typename ty2_, typename ty3_>
-	struct triplet {
-		ty1_ first;
-		ty2_ second;
-		ty3_ third;
-	};
-}
 
 
 _DMP_END

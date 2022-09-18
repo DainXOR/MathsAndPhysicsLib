@@ -17,85 +17,9 @@ namespace dmt{
 
 	namespace raw_structs { 
 
-		template<uint16_t m_, uint16_t n_, uint16_t o_ = 0>
-		struct matrix_dimention
-		{
-			using type = uint16_t;
-
-			const uint16_t m = m_;
-			const uint16_t n = n_;
-			const uint16_t o = o_;
-		};
-
-		//template<uint16_t m_ = 2, uint16_t n_ = 2, uint16_t o_ = 0>
-		//using mat_dim = matrix_dimention<m_, n_, o_>;
-
-		template<uint16_t m_, uint16_t n_>
-		struct matrix_dimention <m_, n_, 0>
-		{
-			using type = uint16_t;
-
-			const uint16_t m = m_;
-			const uint16_t n = n_;
-		};
-
-		template<uint16_t m_>
-		struct matrix_dimention <m_, 1, 0>
-		{
-			using type = uint16_t;
-
-			const uint16_t m = m_;
-			const uint16_t n = 1;
-		};
-
-		template<uint16_t n_>
-		struct matrix_dimention <1, n_, 0>
-		{
-			using type = uint16_t;
-
-			const uint16_t m = 1;
-			const uint16_t n = n_;
-		};
 	}
 
 	using namespace raw_structs;
-
-	template<uint16_t m_, uint16_t n_, uint16_t o_>
-	using matrix3d = matrix_dimention<m_, n_, o_>;
-
-	template<uint16_t m_, uint16_t n_>
-	using matrix2d = matrix_dimention<m_, n_, 0>;
-
-	template<uint16_t n_>
-	using matrixcol = matrix_dimention<1, n_, 0>;
-
-	template<uint16_t m_>
-	using matrixrow = matrix_dimention<m_, 1, 0>;
-
-
-	template<constrains::Arithmetic ty_>
-	using init_list_3d = std::initializer_list <std::initializer_list<std::initializer_list<ty_>>>;
-	template<constrains::Arithmetic ty_, uint16_t m_, uint16_t n_, uint16_t o_>
-	using init_array_3d = std::array<std::array<std::array<ty_, o_>, n_>, m_>;
-
-	template<constrains::Arithmetic ty_>
-	using init_list_2d = std::initializer_list <std::initializer_list<ty_>>;
-	template<constrains::Arithmetic ty_, uint16_t m_, uint16_t n_>
-	using init_array_2d = std::array<std::array<ty_, n_>, m_>;
-
-	template<constrains::Arithmetic ty_>
-	using init_list_col = std::initializer_list <std::initializer_list<ty_>>;
-	template<constrains::Arithmetic ty_, uint16_t n_>
-	using init_array_col = std::array<std::array<ty_, n_>, 1>;
-
-	template<constrains::Arithmetic ty_>
-	using init_list_row = std::initializer_list <std::initializer_list<ty_>>;
-	template<constrains::Arithmetic ty_, uint16_t m_>
-	using init_array_row = std::array<std::array<ty_, 1>, m_>;
-
-
-
-
 
 
 	namespace tests {
@@ -103,22 +27,18 @@ namespace dmt{
 		namespace newStructs {
 			using namespace structs;
 
-			//template<constrains::TensorProps<,>>
-			class Pruebas {
-
-
-			};
-
-			template<typename Properties, constrains::MathType buffer_type = uint16_t>
+			template<constrains::TensorPropertiesStruct Properties, constrains::MathType buffer_type = int32_t>
 			class tensor {
 				tensor() {
 				throw std::exception("Invalid properties type, try using dmutils::structs::TensorProperties");
-			}
+				}
 			};
 
 			template<constrains::MathType buffer_type, uint16_t... dims>
-			class tensor<TensorProperties<dims...>, buffer_type>{
+			class tensor<tensor_properties<dims...>, buffer_type>{
 			public:
+				using properties = tensor_properties<dims...>;
+
 				using type = buffer_type;
 				using const_type = const buffer_type;
 				using pointer = buffer_type*;
@@ -126,64 +46,155 @@ namespace dmt{
 				using reference = buffer_type&;
 				using const_reference = const buffer_type&;
 
-				using properties = TensorProperties<dims...>;
+				using iterator = std::_Array_iterator<type, properties::size>;
+				using const_iterator = std::_Array_const_iterator<type, properties::size>;
+				
+				using reverse_iterator = std::reverse_iterator<iterator>;
+				using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
-			protected:
-				const uint16_t rank = properties::rank;
-				const uint16_t size = properties::size;
-				const std::array<uint16_t, properties::rank> dimentions = properties::dimentions;
+
+				std::array<buffer_type, properties::size> buffer = {};
+
 
 			public:
 
+				inline constexpr size_t getSize() {
+					return properties::size;
+				}
+
+				inline constexpr uint16_t getRank() {
+					return properties::rank;
+				}
+
+				inline constexpr std::array<type, properties::rank> getDimentions() {
+					std::array<type, properties::rank> ret;
+					std::copy_n(properties::dimentions.begin(), properties::rank, ret.begin());
+					return ret;
+				}
+
+				inline constexpr size_t getDimentionSize(uint16_t rankPos) {
+					if (rankPos > properties::rank) throw std::out_of_range("Rank too hight.\n");
+					return properties::dimentions[rankPos];
+				}
+
+				inline constexpr properties getProperties() {
+					return properties();
+				}
+
 				constexpr reference operator [](size_t index) {
-					if(index >= size){
-						throw std::out_of_range("The index is outside the tensor. (Max [" + std::to_string(size - 1) + "], Min [0])");
+					if(index >= properties::size){
+						std::cout << "The index is outside the tensor. (Max [" + std::to_string(properties::size - 1) + "], Min [0])";
+						throw std::out_of_range("The index is outside the tensor. (Max [" + std::to_string(properties::size - 1) + "], Min [0])");
 					}
 
 					return buffer[index];
 				}
 
 				constexpr const_reference operator [](size_t index) const {
-					if (index >= size) {
-						throw std::out_of_range("The index is outside the tensor. (Max [" + std::to_string(size - 1) + "], Min [0])");
+					if (index >= properties::size) {
+						std::cout << "The index is outside the tensor. (Max [" + std::to_string(properties::size - 1) + "], Min [0])";
+						throw std::out_of_range("The index is outside the tensor. (Max [" + std::to_string(properties::size - 1) + "], Min [0])");
 					}
 
 					return buffer[index];
 				}
 
-				constexpr reference operator ()(uint16_t index_0, uint16_t indexes...) {
-					static uint16_t dim_index = 0;
+				template<constrains::UnsignedIntegral... uitype = size_t>
+				constexpr reference operator ()(uitype... indexes) {
 
-					if (index_0 >= dimentions[dim_index]) {
-						throw std::out_of_range("The index is outside the tensor. (Max [" + std::to_string(size - 1) + "], Min [0])");
-					}
-					dim_index++;
-					return this.operator()(indexes...);
-				}
-
-				constexpr const_reference operator ()(uint16_t index_n) const {
-					if (index_n >= size) {
-						throw std::out_of_range("The index is outside the tensor. (Max [" + std::to_string(size - 1) + "], Min [0])");
+					constexpr uint16_t IndexCount = sizeof...(indexes);
+					if (!IndexCount) {
+						std::cout << "No index provided.\n";
+						throw std::invalid_argument("No index provided.\n");
 					}
 
-					return buffer[index_n];
+					if(IndexCount <= properties::rank) {
+						std::array<size_t, IndexCount> IndexesArray = { indexes... };
+
+						size_t index = 0;
+						uint64_t indexMultiplier = 1;
+
+						for (uint16_t i = 0; i < IndexCount; i++) {
+							if (IndexesArray[i] >= properties::dimentions[i]) {
+								std::cout << "The index is outside the tensor."
+									"\n(Max[" + std::to_string(properties::dimentions[i] - 1) + "],"
+									" Attempted[" + std::to_string(IndexesArray[i]) + "])";
+
+								throw std::out_of_range("The index is outside the tensor."
+									"\n(Max[" + std::to_string(properties::dimentions[i] - 1) + "],"
+									" Attempted[" + std::to_string(IndexesArray[i]) + "])");
+							}
+
+							index += IndexesArray[i] * indexMultiplier;
+							indexMultiplier *= properties::dimentions[i];
+							
+						}
+
+						return buffer[index];
+					}
+
+					std::cout << "Amount of indexes provided exceed the tensor rank.";
+					throw std::out_of_range("Amount of indexes provided exceed the tensor rank.");
+
 				}
 
-			public:
+				/*
+				template<constrains::UnsignedIntegral... uitype = size_t>
+				constexpr const_reference operator ()(uitype... indexes) {
 
-				std::array<buffer_type, properties::size> buffer = {};
+					constexpr uint16_t IndexCount = sizeof...(indexes);
+					if (!IndexCount) {
+						std::cout << "No index provided.\n";
+						throw std::invalid_argument("No index provided.\n");
+					}
+
+					if (IndexCount <= rank) {
+						std::array<size_t, IndexCount> IndexesArray = { indexes... };
+
+						size_t index = 0; // IndexesArray[1];
+						uint64_t indexMultiplier = 1;
+
+						for (uint16_t i = 0; i < IndexCount; i++) {
+							if (IndexesArray[i] >= dimentions[i]) {
+								std::cout << "The index is outside the tensor."
+									"\n(Max[" + std::to_string(dimentions[i] - 1) + "],"
+									" Attempted[" + std::to_string(IndexesArray[i]) + "])";
+
+								throw std::out_of_range("The index is outside the tensor."
+									"\n(Max[" + std::to_string(dimentions[i] - 1) + "],"
+									" Attempted[" + std::to_string(IndexesArray[i]) + "])");
+							}
+
+							index += IndexesArray[i] * indexMultiplier;
+							indexMultiplier *= dimentions[i];
+
+						}
+
+						return buffer[index];
+					}
+
+					std::cout << "Amount of indexes provided exceed the tensor rank.";
+					throw std::out_of_range("Amount of indexes provided exceed the tensor rank.");
+
+				}
+				*/
+
+
+
+
 			};
+
+			template<uint16_t m, uint16_t n, constrains::MathType buffer_type = int32_t>
+			using matrix = tensor<tensor_properties<m, n>, buffer_type>;
+
+			template<uint16_t r, constrains::MathType buffer_type = int32_t>
+			using vector = tensor<tensor_properties<r>, buffer_type>;
+
+
 		}
 		
 
-
-		template<constrains::MatrixDim dim_type, constrains::MathType ty_ = dgt::real>
-		class t_matrix
-		{
-			t_matrix() {
-				throw std::exception("This should never be constructed.");
-			}
-		};
+		/*
 
 		template<uint16_t m_, uint16_t n_, uint16_t o_, constrains::MathType ty_>
 		class t_matrix < matrix3d<m_, n_, o_>, ty_ >
@@ -213,47 +224,13 @@ namespace dmt{
 
 		};
 
-
-		template<constrains::Arithmetic ty_>
-		using init_list_3d = std::initializer_list <std::initializer_list<std::initializer_list<ty_>>>;
-		template<constrains::Arithmetic ty_, uint16_t m_, uint16_t n_, uint16_t o_>
-		using init_array_3d = std::array<ty_, m_* n_* o_>;
-
-
-
-		template<constrains::MathType ty_, uint16_t m_, uint16_t n_, uint16_t o_>
-		t_matrix< matrix3d<m_, n_, o_>, ty_> make_matrix(const init_list_3d<ty_>& list_) {
-			init_array_3d<ty_, m_, n_, o_> array_ = {};
-
-			{
-				int i = 0, j = 0, k = 0;
-				for (auto inner1 : list_) {
-					for (auto inner2 : inner1) {
-						for (auto inner3 : inner2) {
-
-							array_[i][j][k++] = inner3;
-
-						}
-						k = 0;
-						j++;
-					}
-					j = 0;
-					i++;
-				}
-			}
-
-			return { array_ };
-		}
-		template<constrains::MathType ty_, uint16_t m_, uint16_t n_, uint16_t o_>
-		t_matrix< matrix3d<m_, n_, o_>, ty_> make_matrix(const init_array_3d<ty_, m_, n_, o_>& array_) {
-			return { array_ };
-		}
+		*/
 
 
 	}
 
 
-
+	/*
 
 
 	template<constrains::MatrixDim dim_type, constrains::MathType ty_ = dgt::real>
@@ -308,99 +285,7 @@ namespace dmt{
 
 	};
 	
-	
-	template<constrains::MathType ty_, uint16_t m_, uint16_t n_, uint16_t o_>
-	matrix< matrix3d<m_, n_, o_>, ty_> make_matrix(const init_list_3d<ty_>& list_) {
-		init_array_3d<ty_, m_, n_, o_> array_ = {};
-		
-		{
-			int i = 0, j = 0, k = 0;
-			for (auto inner1 : list_) {
-				for (auto inner2 : inner1) {
-					for (auto inner3 : inner2) {
-
-						array_[i][j][k++] = inner3;
-
-					}
-					k = 0;
-					j++;
-				}
-				j = 0;
-				i++;
-			}
-		}
-
-		return { array_ };
-	}
-	template<constrains::MathType ty_, uint16_t m_, uint16_t n_, uint16_t o_>
-	matrix< matrix3d<m_, n_, o_>, ty_> make_matrix(const init_array_3d<ty_, m_, n_, o_>& array_) {
-		return { array_ };
-	}
-
-	template<constrains::MathType ty_, uint16_t m_, uint16_t n_>
-	matrix< matrix2d<m_, n_>, ty_> make_matrix(const init_list_2d<ty_>& list_) {
-		init_array_2d<ty_, m_, n_> array_ = {};
-
-		{
-			int i = 0, j = 0;
-			for (auto inner1 : list_) {
-				for (auto inner2 : inner1) {
-					array_[i][j++] = inner2;
-				}
-				j = 0;
-				i++;
-			}
-		}
-
-		return { array_ };
-	}
-	template<constrains::MathType ty_, uint16_t m_, uint16_t n_>
-	matrix< matrix2d<m_, n_>, ty_> make_matrix(const init_array_2d<ty_, m_, n_>& array_) {
-		return { array_ };
-	}
-
-
-	template<constrains::MathType ty_, uint16_t n_>
-	matrix< matrixcol<n_>, ty_> make_matrix(const init_list_col<ty_>& list_) {
-		init_array_col<ty_, n_> array_ = {};
-
-		{
-			int j = 0;
-			for (auto inner1 : list_) {
-				for (auto inner2 : inner1) {
-					array_[0][j++] = inner2;
-				}
-				j = 0;
-			}
-		}
-
-		return { array_ };
-	}
-	template<constrains::MathType ty_, uint16_t n_>
-	matrix< matrixcol<n_>, ty_> make_matrix(const init_array_col<ty_, n_>& array_) {
-		return { array_ };
-	}
-
-	template<constrains::MathType ty_, uint16_t m_>
-	matrix< matrixrow<m_>, ty_> make_matrix(const init_list_row<ty_>& list_) {
-		init_array_row<ty_, m_> array_ = {};
-
-		{
-			int i = 0;
-			for (auto inner1 : list_) {
-				for (auto inner2 : inner1) {
-					array_[i][0] = inner2;
-				}
-				i = 0;
-			}
-		}
-
-		return { array_ };
-	}
-	template<constrains::MathType ty_, uint16_t m_>
-	matrix< matrixrow<m_>, ty_> make_matrix(const init_array_row<ty_, m_>& array_) {
-		return { array_ };
-	}
+	*/
 
 	template<constrains::MathType ty_, size_t rn>
 	class vector

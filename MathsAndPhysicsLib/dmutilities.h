@@ -16,6 +16,13 @@ namespace dmutils {
 			std::integral<ty_>;
 			!std::is_same_v<ty_, bool>;
 		};
+
+		template<typename ty_>
+		concept UnsignedIntegral = requires{
+			std::integral<ty_>;
+			!std::is_same_v<ty_, bool>;
+			std::is_unsigned_v<ty_>;
+		};
 			
 
 		template<typename ty_>
@@ -23,6 +30,7 @@ namespace dmutils {
 			Integral<ty_> || std::is_floating_point_v<ty_>;
 		};
 			
+		
 
 		template<typename ty_>
 		concept MathType = requires(ty_ A, ty_ B) {
@@ -37,15 +45,15 @@ namespace dmutils {
 		};
 
 
-		template<template<uint16_t...>class propsStr, uint16_t...dims>
-		concept TensorPropertiesStruct = requires() {
-			propsStr<dims...>::rank;
+		template<typename propsStr>
+		concept TensorPropertiesStruct = requires (propsStr ps) {
+			
+			std::convertible_to<decltype(propsStr::rank), uint16_t>;
+			std::convertible_to<decltype(propsStr::size), size_t>;
 
-			propsStr<dims...>::dimentions;
-			propsStr<dims...>::size;
+			std::is_assignable_v<std::array<size_t, propsStr::size>, decltype(propsStr::dimentions)>;
 
 		};
-
 		
 
 		template<class str>
@@ -53,7 +61,6 @@ namespace dmutils {
 			Integral<typename str::type>;
 			dimStr.m;
 			dimStr.n;
-			//dimStr.o; // Optional
 		};
 
 		template<class ty_>
@@ -69,46 +76,74 @@ namespace dmutils {
 	namespace structs {
 		namespace {
 
-			template<uint16_t... dims>
-			struct tensor_properties {
-				const uint16_t rank = sizeof... (dims);
-				const std::array<uint16_t, sizeof... (dims)> dimentions = { dims... };
-				const size_t size = TensorSize<dims...>::size;
+			template<constrains::Arithmetic type, type ans, type head, type... tail>
+			struct variadic_mult
+			{
+				const static type value = variadic_mult<type, ans * head, tail...>::value;
+			};
+
+			template<constrains::Arithmetic type, type ans, type tail>
+			struct variadic_mult<type, ans, tail>
+			{
+				const static type value = ans * tail;
 			};
 
 			
 		}
 
-		template<uint16_t... dims>
-		using TensorProperties = tensor_properties<dims...>;
-
-		template<uint16_t dim_0, uint16_t... dim_n>
-		struct TensorSize
-		{
-			const static size_t size = dim_0 * TensorSize<dim_n...>::size;
-		};
-
-		template<uint16_t dim_n>
-		struct TensorSize<dim_n>
-		{
-			const static size_t size = dim_n;
-		};
+		template<size_t... dims>
+		constexpr size_t tensor_size = variadic_mult<size_t, 1, dims...>::value;
 
 		template<uint16_t... dims>
-		constexpr uint16_t TensorRank = tensor_properties<dims...>().rank;
+		constexpr uint16_t tensor_rank = sizeof... (dims);
+
+		template<uint16_t... dims>
+		constexpr std::array<size_t, sizeof... (dims)> tensor_dimentions = { dims... };
+
+
+		template<uint64_t... dims>
+		struct tensor_properties {
+			inline const static uint16_t	rank		= tensor_rank<dims...>;
+			inline const static size_t		size		= tensor_size<dims...>;
+			inline const static auto		dimentions	= tensor_dimentions<dims...>;
+			
+		};
+
 		
-		template<uint16_t... dims>
-		constexpr auto TensorDimentions = tensor_properties<dims...>().dimentions;
 
 	}
 
 	namespace casts {
 
-		//template<class from, class to, from var>
-		//using sc = static_cast<to>(var);
+		
 	}
 
 	namespace tricks{
+	}
+
+	namespace template_traits {
+		namespace {
+			template<bool test, auto val>
+			struct false_or_value_s {
+			};
+
+			template<auto val>
+			struct false_or_value_s<false, val> {
+				static constexpr auto value = 0;
+			};
+
+			template<auto val>
+			struct false_or_value_s<true, val> {
+				static constexpr auto value = val;
+			};
+		}
+		
+		template<bool test, auto value>
+		inline constexpr auto false_or_value = false_or_value_s<test, value>::value;
+
+		template<bool test, auto value>
+		inline constexpr auto true_or_value = false_or_value_s<!test, value>::value;
+
 	}
 
 }
