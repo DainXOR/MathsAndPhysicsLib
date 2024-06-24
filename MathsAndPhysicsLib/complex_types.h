@@ -12,15 +12,15 @@ namespace imaginary_ns {
 	namespace tests {
 		using dmutils::constrains::MathType;
 
-		template <MathType ty_>
+		template <MathType value_type>
 		class imaginary {
 		public:
-			using type = ty_;
-			using const_type = const ty_;
-			using pointer = ty_*;
-			using const_pointer = const ty_*;
-			using reference = ty_&;
-			using const_reference = const ty_&;
+			using type = value_type;
+			using const_type = const type;
+			using pointer = type*;
+			using const_pointer = const type*;
+			using reference = type&;
+			using const_reference = const type&;
 
 			
 
@@ -29,15 +29,15 @@ namespace imaginary_ns {
 
 		};
 
-		template <MathType ty_>
+		template <MathType value_type>
 		class real {
 		public:
-			using type = ty_;
-			using const_type = const ty_;
-			using pointer = ty_*;
-			using const_pointer = const ty_*;
-			using reference = ty_&;
-			using const_reference = const ty_&;
+			using type = value_type;
+			using const_type = const type;
+			using pointer = type*;
+			using const_pointer = const type*;
+			using reference = type&;
+			using const_reference = const type&;
 
 		public:
 			type value;
@@ -50,6 +50,7 @@ namespace imaginary_ns {
 
 namespace dmt {
 	using dmutils::constrains::MathType;
+	using namespace dmutils::structs;
 
 	enum complexTraits : unsigned char {
 		RECTANGULAR		= 0b0000,
@@ -62,25 +63,28 @@ namespace dmt {
 
 
 
-	template<MathType ty_ = dgt::real>
+	template<MathType value_type = dgt::real>
 	class complex
 	{
-		using buffer_type = ty_;
-		using const_type = const ty_;
-		using pointer = ty_*;
-		using const_pointer = const ty_*;
-		using reference = ty_&;
-		using const_reference = const ty_&;
+		using buffer_type = value_type;
+		using const_type = const value_type;
+		using pointer = value_type*;
+		using const_pointer = const value_type*;
+		using reference = value_type&;
+		using const_reference = const value_type&;
 
-		using similar = std::type_identity_t<ty_>;
-		using similar_const = const std::type_identity_t<ty_>;
-		using similar_ptr = std::type_identity_t<ty_>*;
-		using similar_const_ptr = const std::type_identity_t<ty_>*;
-		using similar_ref = std::type_identity_t<ty_>&;
-		using similar_const_ref = const std::type_identity_t<ty_>&;
+		using similar = std::type_identity_t<value_type>;
+		using similar_const = const std::type_identity_t<value_type>;
+		using similar_ptr = std::type_identity_t<value_type>*;
+		using similar_const_ptr = const std::type_identity_t<value_type>*;
+		using similar_ref = std::type_identity_t<value_type>&;
+		using similar_const_ref = const std::type_identity_t<value_type>&;
 
 		using Traits = complexTraits;
 
+	private:
+		std::array<buffer_type, 2> m_Coordinates;
+		Traits m_Traits = RECTANGULAR;
 
 	public:
 		/// > Constructors
@@ -108,7 +112,7 @@ namespace dmt {
 		/// \note						Second value of the $vector is the .imaginary_ part.
 		/// 
 		template<MathType other_type>
-		constexpr complex(const vector<other_type, 2>& Coordinates_, const Traits& traits_) noexcept
+		constexpr complex(const std::array<other_type, 2>& Coordinates_, const Traits& traits_) noexcept
 			: m_Coordinates({ buffer_type(Coordinates_[0]), buffer_type(Coordinates_[1])}), m_Traits(traits_)
 		{}
 
@@ -132,14 +136,15 @@ namespace dmt {
 
 		/// > Casts
 
-		explicit operator int()			const noexcept { return int(real()); }
+		explicit operator int()				const noexcept { return int(real()); }
 		explicit operator long()			const noexcept { return long(real()); }
-		explicit operator short()		const noexcept { return short(real()); }
-		explicit operator float()		const noexcept { return float(real()); }
-		explicit operator double()		const noexcept { return real(); }
+		explicit operator short()			const noexcept { return short(real()); }
+		explicit operator float()			const noexcept { return float(real()); }
+		explicit operator double()			const noexcept { return real(); }
 		explicit operator char()			const noexcept { return char(real()); }
 		explicit operator bool()			const noexcept { return bool(magnitude()); }
-		explicit operator std::string()	const noexcept {
+		explicit operator std::string()		const noexcept {
+
 			if (getCoordType()) /* True: Polar*/ {
 				std::string formatStr = "(" + std::to_string(magnitude()) + ", " +
 					std::to_string(angle()) + ")";
@@ -167,8 +172,8 @@ namespace dmt {
 			if (!getCoordType()) // Returns non cero if polar coords
 				return false;
 
-			buffer_type x = m_Coordinates.value(0) * cos(m_Coordinates.value(1));
-			buffer_type y = m_Coordinates.value(0) * sin(m_Coordinates.value(1));
+			buffer_type x = m_Coordinates[0] * cos(m_Coordinates[1]);
+			buffer_type y = m_Coordinates[0] * sin(m_Coordinates[1]);
 			m_Coordinates = { x, y };
 			return true;
 		}
@@ -185,36 +190,36 @@ namespace dmt {
 			if (getCoordType()) // Returns non cero if polar coords
 				return false;
 
-			buffer_type r = sqrt(pow(m_Coordinates.value(0), 2) + pow(m_Coordinates.value(1), 2));
-			buffer_type a = atan(m_Coordinates.value(0) / m_Coordinates.value(1));
+			buffer_type r = sqrt(pow(m_Coordinates[0], 2) + pow(m_Coordinates[1], 2));
+			buffer_type a = atan(m_Coordinates[0] / m_Coordinates[1]);
 			m_Coordinates = { r, a };
 			return true;
 		}
 
 		//dgs::pair<>
-		dmt::point<buffer_type, 2>	values()		const noexcept { return this->m_Coordinates; }
+		std::array<buffer_type, 2>	values()		const noexcept { return this->m_Coordinates; }
 		Traits						traits()		const noexcept { return this->m_Traits; }
 		buffer_type					real()			const noexcept {
 			buffer_type val = 0;
-			(!getCoordType()) && (val = m_Coordinates.value(0));
+			(!getCoordType()) && (val = m_Coordinates[0]);
 
 			return val;
 		}
 		buffer_type					imaginary()		const noexcept {
 			buffer_type val = 0;
-			(!getCoordType()) && (val = m_Coordinates.value(1));
+			(!getCoordType()) && (val = m_Coordinates[1]);
 
 			return val;
 		}
 		buffer_type					magnitude()		const noexcept {
 			buffer_type val = 0;
-			(getCoordType()) && (val = m_Coordinates.value(0));
+			(getCoordType()) && (val = m_Coordinates[0]);
 
 			return val;
 		}
 		buffer_type					angle()			const noexcept {
 			buffer_type val = 0;
-			(getCoordType()) && (val = m_Coordinates.value(1));
+			(getCoordType()) && (val = m_Coordinates[1]);
 
 			return val;
 		}
@@ -300,10 +305,6 @@ namespace dmt {
 	private:
 		Traits getCoordType() const noexcept { return Traits(m_Traits & POLAR); }
 
-
-	private:
-		point<buffer_type, 2> m_Coordinates = {};
-		Traits m_Traits = RECTANGULAR;
 
 	};
 

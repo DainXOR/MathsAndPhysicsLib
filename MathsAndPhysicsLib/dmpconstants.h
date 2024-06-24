@@ -27,7 +27,7 @@ namespace dpvars {
 }
 
 namespace dpconsts {
-    constexpr const double gravity = 6.674E-11;
+    constexpr const double gravity = 6.674e-11;
     constexpr const double gammaOneHalf = 1.772453;
 }
 

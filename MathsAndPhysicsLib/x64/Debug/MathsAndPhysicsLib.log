@@ -1,14 +1,2 @@
-﻿  dmath_types.cpp
-  dmpconstants.cpp
-  dmptas.cpp
-  main.cpp
-C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\tensor_types.h(164,55): warning C4838: la conversión de 'int' en '_Ty' requiere una conversión de restricción
-          with
-          [
-              _Ty=size_t
-          ]
-C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\main.cpp(68): message : Vea la referencia a la creación de una instancia de la función plantilla "int &dmp::dmt::tests::newStructs::tensor<dmp::dmutils::structs::tensor_properties<3,2,7,5,9,4>,int32_t>::operator ()<int,int,int,int,int,int>(int,int,int,int,int,int)" que se está compilando
-C:\dev\cpp\MathsAndPhysicsLib\MathsAndPhysicsLib\main.cpp(68): message : Vea la referencia a la creación de una instancia de la función plantilla "int &dmp::dmt::tests::newStructs::tensor<dmp::dmutils::structs::tensor_properties<3,2,7,5,9,4>,int32_t>::operator ()<int,int,int,int,int,int>(int,int,int,int,int,int)" que se está compilando
-  mFunctions.cpp
-  Generando código...
+﻿  main.cpp
   MathsAndPhysicsLib.vcxproj -> C:\dev\cpp\MathsAndPhysicsLib\x64\Debug\MathsAndPhysicsLib.exe

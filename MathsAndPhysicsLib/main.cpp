@@ -1,23 +1,25 @@
 #include <iostream>
 #include <type_traits>
 #include <vector>
+#include <memory>
 
 // #include "complex_types.h"
 #include "tensor_types.h"
 #include "mFunctions.h"
 
 using namespace dmp;
-using namespace dmt::tests::newStructs;
+//using namespace dmt::tests::newStructs;
 
-
-template<uint16_t... dims>
-using tprops = dmutils::structs::tensor_properties<dims...>;
-
+template<uint16_t...dims>
+void UnaPrueba() {
+	std::cout << dmt::structs::tensor_size<dims...> << "\n";
+	std::cin.get();
+}
 
 void Hmmmmmmmm();
 
 int main() {
-
+	
 	//dmt::vector<int, 3> v0{3, 8, 1};
 	//dmt::vector<int, 3> v1{2, 4, 1};
 	//dmt::vector<int, 3> v2{ 2, 4 };
@@ -51,51 +53,70 @@ int main() {
 	//v2 += v1 + v0;
 	//dmt::vector<float, 3> v2 = v0 + v1;
 	//v2 - 5;
+
+	// UnaPrueba<2, 4, 4, 5>();
+	dmt::tensor a;
+	dmt::tensor<short> b;
+	dmt::tensor<long, 3, 2> c;
+
+	constexpr int r = 10000;
+	using value_type = int;
+
+	std::conditional_t<r && (r < (((1 << 16) - 1) / sizeof(value_type))),
+		std::array<value_type, r>,
+		std::vector<value_type>> buffer = {1, 2, 3};
+
+
+	buffer = { 0, 6, 10, 25 };
+	//dmt::tensor<tprops<3, 2, 7, 5, 9, 4>> Tensor1;
+
+	//auto tensorProps = Tensor1.getProperties();
+	//auto tensorDims = Tensor1.getDimentions();
+
+	//std::cout << Tensor1.getSize() << "\n";
+	//std::cout << Tensor1.getRank() << "\n";
+
 	
-	tensor<tprops<3, 2, 7, 5, 9, 4>> Tensor1;
-
-	auto tensorProps = Tensor1.getProperties();
-	auto tensorDims = Tensor1.getDimentions();
-
-	std::cout << tensorProps.size << "\n";
-	std::cout << tensorProps.rank << "\n";
-
-	std::cout << "\n";
-	for (auto value : tensorDims) {
-		std::cout << value << "\n";
-	}
+	//std::cout << "\n";
+	//for (auto value : Tensor1.getDimentions()) {
+	//	std::cout << value << "\n";
+	//}
 	
-	matrix<7, 5> Matrix1;
 
-	std::cout << "\n";
-	auto tensorDims2 = Matrix1.getDimentions();
-
+	//dmt::matrix<tprops<7, 5>> Matrix1;
+	//
+	//std::cout << "\n";
+	//auto tensorDims2 = Matrix1.getDimentions();
+	/*
 	for (auto value : tensorDims2) {
 		std::cout << value << "\n";
 	}
+	*/
+	// Hmmmmmmmm();
 
-	//Hmmmmmmmm();
+	
+
+	//std::cout << Tensor1.getSize() << "\n";
+	//std::cout << Tensor1.getRank() << "\n";
+
+
+	//std::cout << "\n";
+	//for (auto value : Tensor1.getDimentions()) {
+	//	std::cout << value << "\n";
+	//}
 	
 }
 
-
+/*
 void Hmmmmmmmm() {
 
-	tensor<tprops<3, 2, 7, 5, 9, 4>> Tensor1;
+	dmt::tensor<tprops<3, 2, 7, 5, 9, 4>> Tensor1;
 	for (uint16_t i = 0; i < Tensor1.getSize(); i++) {
 		Tensor1[i] = i;
 	}
 
-	matrix<7, 5> Matrix1 =
-	{	1,  2,  3,  10, 11,
-		4,  5,  6,  12, 13,
-		7,  8,  9,  14, 15,
-		16, 17, 18, 19, 20,
-		21, 29, 30, 32, 33,
-		22, 28, 31, 34, 35,
-		23, 24, 25, 26, 27
-	};
-
+	dmt::matrix<tprops<7, 5>> Matrix1;
+	
 
 	for (int r = 0; r < Tensor1.getDimentionSize(5); r++) {
 		for (int q = 0; q < Tensor1.getDimentionSize(4); q++) {
@@ -117,3 +138,5 @@ void Hmmmmmmmm() {
 		}
 	}
 }
+
+*/

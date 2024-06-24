@@ -7,7 +7,7 @@
 
 _DMP_BEGIN
 
-// Funtions that only works with native types, other types are not defined behavior
+/// \Warn Funtions that only works with native types, other types are undefined behavior
 namespace dmbasic_functions
 {
 	[[nodiscard]] constexpr auto abs(const auto& num) noexcept { return num * ((num > 0) - (num < 0)); }

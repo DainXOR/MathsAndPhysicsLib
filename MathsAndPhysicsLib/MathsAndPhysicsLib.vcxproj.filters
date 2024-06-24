@@ -87,6 +87,9 @@
     <ClCompile Include="dmbasic_functions.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="ecuation_types.cpp">
+      <Filter>Tipos y estructuras\Tipos matematicos\Ecuaciones</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dmplib.h">
@@ -154,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="dmpdefinitions.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="ecuation_types.h">
+      <Filter>Tipos y estructuras\Tipos matematicos\Ecuaciones</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

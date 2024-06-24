@@ -9,12 +9,6 @@ _DMP_BEGIN
 namespace dmt { // Math Types
 	using namespace dmutils;
 
-	template<constrains::MathType ty_, size_t rn>
-	class vector;
-
-	template<constrains::MathType ty_, size_t rn>
-	using point = vector<ty_, rn>;
-
 }
 
 namespace dms { // Math Structures
